@@ -11,11 +11,6 @@ class App extends Component {
       const name1 = input1.value.trim();
       const name2 = input2.value.trim();
 
-      if (name1 === "" || name2 === "") {
-        output.innerText = "Please enter both names";
-        return;
-      }
-
       const total = (name1.length + name2.length)%6;
       if(total === 1) output.innerText = "Friends";
       else if(total === 2) output.innerText = "Love";
@@ -23,6 +18,7 @@ class App extends Component {
       else if(total === 4) output.innerText = "Marriage";
       else if(total === 5) output.innerText = "Enemy";
       else if(total === 0) output.innerText = "Siblings";
+      else output.innerText = "Please enter both names";
     }
 
     function clearFields() {
