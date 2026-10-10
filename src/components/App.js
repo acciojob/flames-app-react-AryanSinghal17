@@ -17,6 +17,13 @@ class App extends Component {
         return;
       }
 
+
+      if (name1 === name2) {
+        output.innerText = "Siblings";
+        return;
+      }
+
+
       let arr1 = name1.split("");
       let arr2 = name2.split("");
 
@@ -33,11 +40,20 @@ class App extends Component {
       const count = arr1.length + arr2.length;
 
       if (count === 0) {
-        output.innerText = "Please enter different names";
+        output.innerText = "Siblings";
         return;
       }
 
-      let flames = ["Friends", "Love", "Affection", "Marriage", "Enemy", "Siblings"];
+
+      const flames = [
+        "Friends",
+        "Love",
+        "Affection",
+        "Marriage",
+        "Enemy",
+        "Siblings"
+      ];
+
       let index = 0;
 
       while (flames.length > 1) {
@@ -57,12 +73,14 @@ class App extends Component {
     return (
       <div id="main">
         <input
+          type="text"
           data-testid="input1"
           name="name1"
           placeholder="Enter first name"
         />
 
         <input
+          type="text"
           data-testid="input2"
           name="name2"
           placeholder="Enter second name"
