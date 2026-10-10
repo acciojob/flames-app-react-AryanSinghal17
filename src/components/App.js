@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import "../styles/App.css";
 
@@ -8,17 +9,43 @@ class App extends Component {
       const input2 = document.querySelector('[data-testid="input2"]');
       const output = document.querySelector('[data-testid="answer"]');
 
-      const name1 = input1.value.trim();
-      const name2 = input2.value.trim();
+      let name1 = input1.value.toLowerCase().replace(/\s/g, "");
+      let name2 = input2.value.toLowerCase().replace(/\s/g, "");
 
-      const total = (name1.length + name2.length)%6;
-      if(total === 1) output.innerText = "Friends";
-      else if(total === 2) output.innerText = "Love";
-      else if(total === 3) output.innerText = "Affection";
-      else if(total === 4) output.innerText = "Marriage";
-      else if(total === 5) output.innerText = "Enemy";
-      else if(total === 0) output.innerText = "Siblings";
-      else output.innerText = "Please enter both names";
+      if (name1 === "" || name2 === "") {
+        output.innerText = "Please enter both names";
+        return;
+      }
+
+      let arr1 = name1.split("");
+      let arr2 = name2.split("");
+
+      for (let i = 0; i < arr1.length; i++) {
+        const index = arr2.indexOf(arr1[i]);
+
+        if (index !== -1) {
+          arr1.splice(i, 1);
+          arr2.splice(index, 1);
+          i--;
+        }
+      }
+
+      const count = arr1.length + arr2.length;
+
+      if (count === 0) {
+        output.innerText = "Please enter different names";
+        return;
+      }
+
+      let flames = ["Friends", "Love", "Affection", "Marriage", "Enemy", "Siblings"];
+      let index = 0;
+
+      while (flames.length > 1) {
+        index = (index + count - 1) % flames.length;
+        flames.splice(index, 1);
+      }
+
+      output.innerText = flames[0];
     }
 
     function clearFields() {
@@ -29,8 +56,17 @@ class App extends Component {
 
     return (
       <div id="main">
-        <input data-testid="input1" name="name1" placeholder="Enter first name" />
-        <input data-testid="input2" name="name2" placeholder="Enter second name" />
+        <input
+          data-testid="input1"
+          name="name1"
+          placeholder="Enter first name"
+        />
+
+        <input
+          data-testid="input2"
+          name="name2"
+          placeholder="Enter second name"
+        />
 
         <button
           type="button"
